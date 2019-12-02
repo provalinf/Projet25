@@ -1,10 +1,11 @@
 package Reseau;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Ligne {
 	private String nomLigne;
-	private ArrayList<Ligne> ligne;
 	private int intervalPassage;
 	private double horaireOn;
 	private double horaireOff;
@@ -12,8 +13,12 @@ public class Ligne {
 
 	public Ligne(String nomLigne) {
 		this.nomLigne = nomLigne;
-		this.ligne = new ArrayList<>();
 		this.trajets = new ArrayList<>();
+	}
+
+	public Ligne(String nomLigne, Trajet... trajets) {
+		this(nomLigne);
+		Collections.addAll(this.trajets, trajets);
 	}
 
 	public void addTrajet(Trajet trajet) {

@@ -28,4 +28,16 @@ public class Station {
 		stockageMax.put(new SacCourrier(), 20);
 		stockageMax.put(new ConteneurVerre(), 2);
 	}
+
+	public String getNomStation() {
+		return nomStation;
+	}
+
+	public HashMap<Marchandise, Integer> getStockageMax() {
+		return stockageMax;
+	}
+
+	public ArrayList<Marchandise> getStockage() {
+		return stockage;
+	}
 }
