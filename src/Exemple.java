@@ -19,10 +19,9 @@ public class Exemple {
 		besancon.addStation(new Station("Voirin"));
 		besancon.addStation(new Station("Siffert"));
 		besancon.addStation(new Station("Leclerc"));
-		besancon.addStation(new Station("Gare viotte"));
+		besancon.addStation(new Station("Gare Viotte"));
 		besancon.addStation(new Station("Notre Dame"));
 		besancon.addStation(new Station("Pole Sportif"));
-		besancon.addStation(new Station("Notre Dame"));
 
 		besancon.addLigne(new Ligne("L3",
 				new Trajet(besancon.getStation("Pole Temis"), besancon.getStation("U-Sport"), 3, true),
