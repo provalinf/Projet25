@@ -1,4 +1,7 @@
+package Algorithme;
+
 import Reseau.Ligne;
+import Reseau.Plan;
 import Reseau.Station;
 
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ public class AlgorithmeDijkstra {
 
     /* Calcul le plus court chemin entre chaque noeud et la source */
 
-    public void dijkstra(Plan plan, Station source){
+    public void dijkstra(Plan plan, Station source, Station destination){
         source.setDistanceDijkstra(0);
         ArrayList<Station> stations = new ArrayList<>();
         ArrayList<Station> stationsAVisitees = new ArrayList<>();
@@ -30,6 +33,7 @@ public class AlgorithmeDijkstra {
             }
             stations.add(stationCourante);
         }
+        afficheResultat(plan, source, destination);
     }
 
     private Station getDistanceStation(ArrayList<Station> station){
@@ -53,5 +57,14 @@ public class AlgorithmeDijkstra {
             plusCourtChemin.add(stationCourante);
             stationAdjacente.setPlusCourtCheminDijkstra(plusCourtChemin);
         }
+    }
+
+    private void afficheResultat(Plan plan, Station source, Station destination){
+        ArrayList<String> stations = destination.cheminDijkstra();
+        ArrayList<String> lignes = Ligne.ligneUtilisees(plan, stations);
+        for(String ligne: lignes){
+            System.out.println(ligne);
+        }
+        System.out.println("Distance totale : "+destination.getDistanceDijkstra());
     }
 }

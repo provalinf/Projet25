@@ -1,5 +1,9 @@
+package Lancement;
+
+import Algorithme.AlgorithmeDijkstra;
 import Reseau.Ligne;
 import Reseau.Station;
+import Reseau.Plan;
 
 public class Exemple {
 	public static void main(String[] args) {
@@ -91,13 +95,13 @@ public class Exemple {
 
 		/* Appel de l'algorithme de Dijkstra */
 		AlgorithmeDijkstra algoDijkstra = new AlgorithmeDijkstra();
-		algoDijkstra.dijkstra(besancon, poleTemis);
+		algoDijkstra.dijkstra(besancon, poleTemis, gibelotte);
 
 		/* Visualiser le plus court chemin entre un noeud et la source */
-		gibelotte.afficheCheminDijkstra();
+		/*gibelotte.afficheCheminDijkstra();
 		crous.afficheCheminDijkstra();
 		gareViotte.afficheCheminDijkstra();
 		securiteSociale.afficheCheminDijkstra();
-		siffert.afficheCheminDijkstra();
+		siffert.afficheCheminDijkstra();*/
 	}
 }

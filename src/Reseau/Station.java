@@ -35,14 +35,13 @@ public class Station {
 		stationsAdjacentes.put(station,distance);
 	}
 
-	public void afficheCheminDijkstra(){
-		String c = "";
+	public ArrayList<String> cheminDijkstra(){
+		ArrayList<String> stations = new ArrayList<>();
+		stations.add(this.getNomStation());
 		for(Station s: plusCourtCheminDijkstra){
-			c += s.getNomStation();
-			c += ", ";
+			stations.add(s.getNomStation());
 		}
-		c += nomStation+" : "+distanceDijkstra;
-		System.out.println(c);
+		return stations;
 	}
 
 	public String getNomStation() {
