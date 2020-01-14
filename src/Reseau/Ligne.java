@@ -41,8 +41,35 @@ public class Ligne {
 		}*/
 		//Optimisation des lignes utilisees pour réduire le nombre de changement de ligne
 		//Choix aleatoire de la ligne a modifier !!!
-		for(ArrayList<String> stationTemp: lignesPossibles){
-			lignes.add(stationTemp.get(0));
+		boolean out = false;
+		for(ArrayList<String> stationTemp: lignesPossibles) {
+			ArrayList<String> stationTempBis;
+			if (lignesPossibles.indexOf(stationTemp) <= (lignesPossibles.size()-2)) {
+				stationTempBis = lignesPossibles.get(lignesPossibles.indexOf(stationTemp)+1);
+				System.out.println("Pre");
+				for (String l1 : stationTemp) {
+					System.out.println(l1);
+				}
+				System.out.println("");
+				for (String l1 : stationTempBis) {
+					System.out.println(l1);
+				}
+				System.out.println("Post");
+
+				for (String l1 : stationTemp) {
+					out = false;
+					for (String l2 : stationTempBis) {
+						if (l1.equals(l2)) {
+							lignes.add(l1);
+							out = true;
+							break;
+						}
+					}
+					if (out) {
+						break;
+					}
+				}
+			}
 		}
 		return lignes;
 	}
@@ -51,9 +78,7 @@ public class Ligne {
 		ArrayList<String> lignes = new ArrayList<>();
 		for(Ligne l: plan.getReseau()){
 			for(Station station: l.stations){
-				System.out.println(station.getNomStation());
 				if(station.getNomStation().equals(s)) {
-					System.out.println("ajout : "+l.nomLigne);
 					lignes.add(l.nomLigne);
 				}
 			}

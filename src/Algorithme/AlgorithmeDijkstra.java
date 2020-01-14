@@ -62,8 +62,12 @@ public class AlgorithmeDijkstra {
     private void afficheResultat(Plan plan, Station source, Station destination){
         ArrayList<String> stations = destination.cheminDijkstra();
         ArrayList<String> lignes = Ligne.ligneUtilisees(plan, stations);
+        System.out.println("Debut resultat");
         for(String ligne: lignes){
             System.out.println(ligne);
+        }
+        for(String station: stations){
+            System.out.println(station);
         }
         System.out.println("Distance totale : "+destination.getDistanceDijkstra());
     }

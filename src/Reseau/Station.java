@@ -37,10 +37,11 @@ public class Station {
 
 	public ArrayList<String> cheminDijkstra(){
 		ArrayList<String> stations = new ArrayList<>();
-		stations.add(this.getNomStation());
 		for(Station s: plusCourtCheminDijkstra){
 			stations.add(s.getNomStation());
+			System.out.println(s.getNomStation());
 		}
+		stations.add(this.getNomStation());
 		return stations;
 	}
 
