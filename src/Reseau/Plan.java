@@ -9,23 +9,23 @@ import java.util.Collection;
 
 public class Plan {
 	private String nom;
-	private ArrayList<Ligne> reseau;
+	private ArrayList<Ligne> lignes;
 	private int nbRemorqueDisponible;
 	private int nbRemorqueUtilise;
 	private ArrayList<Station> stations;
 
 	public Plan(String nom) {
 		this.nom = nom;
-		reseau = new ArrayList<>();
+		lignes = new ArrayList<>();
 		stations = new ArrayList<>();
 	}
 
-	public ArrayList<Ligne> getReseau() {
-		return reseau;
+	public ArrayList<Ligne> getLignes() {
+		return lignes;
 	}
 
 	public void addLigne(Ligne ligne) {
-		reseau.add(ligne);
+		lignes.add(ligne);
 	}
 
 	public void addStation(Station station) {
@@ -34,6 +34,10 @@ public class Plan {
 
 	public Station getStation(final String nomStation) {
 		return stations.stream().filter(s1 -> s1.getNomStation().equals(nomStation)).findFirst().get();
+	}
+
+	public ArrayList<Station> getStations() {
+		return stations;
 	}
 
 	public int getNbRemorqueDisponible() {
@@ -51,4 +55,5 @@ public class Plan {
 	public void setNbRemorqueUtilise(int nbRemorqueUtilise) {
 		this.nbRemorqueUtilise = nbRemorqueUtilise;
 	}
+
 }

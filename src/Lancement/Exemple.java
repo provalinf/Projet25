@@ -64,9 +64,9 @@ public class Exemple {
 
 		/* Creation des lignes */
 		Ligne l3 = new Ligne("L3", poleTemis, uSport, campusArago, crous, gibelotte, voirin, gareViotte);
+		Ligne l6 = new Ligne("L6", poleTemis, poleSportif, leclerc);
 		Ligne l7 = new Ligne("L7", notreDame, poleSportif, poleTemis, uSport, campusArago, crous, papin, beauxArts, securiteSociale, lavoisier);
 		Ligne l9 = new Ligne("L9", siffert, leclerc, notreDame, securiteSociale, beauxArts, papin);
-		Ligne l6 = new Ligne("L6", poleTemis, poleSportif, leclerc);
 		Ligne l10 = new Ligne("L10", lavoisier, gibelotte, voirin, siffert);
 
 		/* Creation du plan */
@@ -88,20 +88,19 @@ public class Exemple {
 		besancon.addStation(poleSportif);
 
 		besancon.addLigne(l3);
+		besancon.addLigne(l6);
 		besancon.addLigne(l7);
 		besancon.addLigne(l9);
-		besancon.addLigne(l6);
 		besancon.addLigne(l10);
 
 		/* Appel de l'algorithme de Dijkstra */
 		AlgorithmeDijkstra algoDijkstra = new AlgorithmeDijkstra();
 		algoDijkstra.dijkstra(besancon, poleTemis, gibelotte);
 
-		/* Visualiser le plus court chemin entre un noeud et la source */
-		/*gibelotte.afficheCheminDijkstra();
-		crous.afficheCheminDijkstra();
-		gareViotte.afficheCheminDijkstra();
-		securiteSociale.afficheCheminDijkstra();
-		siffert.afficheCheminDijkstra();*/
+		algoDijkstra.dijkstra(besancon, poleTemis, papin);
+
+		algoDijkstra.dijkstra(besancon, beauxArts, notreDame);
+
+		algoDijkstra.dijkstra(besancon, voirin, gareViotte);
 	}
 }

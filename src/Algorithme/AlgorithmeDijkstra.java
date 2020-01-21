@@ -6,7 +6,6 @@ import Reseau.Station;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class AlgorithmeDijkstra {
@@ -14,6 +13,7 @@ public class AlgorithmeDijkstra {
     /* Calcul le plus court chemin entre chaque noeud et la source */
 
     public void dijkstra(Plan plan, Station source, Station destination){
+        init(plan);
         source.setDistanceDijkstra(0);
         ArrayList<Station> stations = new ArrayList<>();
         ArrayList<Station> stationsAVisitees = new ArrayList<>();
@@ -34,6 +34,13 @@ public class AlgorithmeDijkstra {
             stations.add(stationCourante);
         }
         afficheResultat(plan, source, destination);
+    }
+
+    private void init(Plan plan) {
+        for(Station s : plan.getStations()){
+            s.setDistanceDijkstra(2000000000);
+            s.setPlusCourtCheminDijkstra(new LinkedList<>());
+        }
     }
 
     private Station getDistanceStation(ArrayList<Station> station){
@@ -60,15 +67,15 @@ public class AlgorithmeDijkstra {
     }
 
     private void afficheResultat(Plan plan, Station source, Station destination){
-        ArrayList<String> stations = destination.cheminDijkstra();
-        ArrayList<String> lignes = Ligne.ligneUtilisees(plan, stations);
+        ArrayList<Station> stations = destination.cheminDijkstra();
+        ArrayList<Ligne> lignes = Ligne.ligneUtilisees(plan, stations);
         System.out.println("Debut resultat");
-        for(String ligne: lignes){
-            System.out.println(ligne);
+        for(Ligne ligne: lignes){
+            System.out.println(ligne.getNomLigne());
         }
-        for(String station: stations){
-            System.out.println(station);
+        for(Station station: stations){
+            System.out.println(station.getNomStation());
         }
-        System.out.println("Distance totale : "+destination.getDistanceDijkstra());
+        System.out.println("Distance totale : "+destination.getDistanceDijkstra()+"\n");
     }
 }
