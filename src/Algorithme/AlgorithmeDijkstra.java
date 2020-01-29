@@ -14,12 +14,14 @@ public class AlgorithmeDijkstra {
 
     public void dijkstra(Plan plan, Station source, Station destination){
         init(plan);
+        //Distance source a 0
         source.setDistanceDijkstra(0);
         ArrayList<Station> stations = new ArrayList<>();
         ArrayList<Station> stationsAVisitees = new ArrayList<>();
 
         stationsAVisitees.add(source);
 
+        //Tant qu'il reste des stations non visitees
         while(stationsAVisitees.size() != 0){
             Station stationCourante = getDistanceStation(stationsAVisitees);
             stationsAVisitees.remove(stationCourante);
@@ -28,6 +30,7 @@ public class AlgorithmeDijkstra {
                 Integer lignePoids = stationPair.getValue();
                 if(!stations.contains(stationAdjacente)) {
                     calculDistanceMinimale(stationAdjacente, lignePoids, stationCourante);
+                    //Ajout des stations adjacentes
                     stationsAVisitees.add(stationAdjacente);
                 }
             }
@@ -43,6 +46,7 @@ public class AlgorithmeDijkstra {
         }
     }
 
+    //Retourne la plus petite distance parmi toutes les stations pour recommencer une itération
     private Station getDistanceStation(ArrayList<Station> station){
         Station stationPlusCourteDistance = null;
         int plusCourteDistance = 2000000000;
@@ -56,6 +60,7 @@ public class AlgorithmeDijkstra {
         return stationPlusCourteDistance;
     }
 
+    //Comparaison de la distance actuelle et de la nouvelle et mise a jour si besoin
     private void calculDistanceMinimale(Station stationAdjacente, Integer lignePoids, Station stationCourante){
         Integer distanceSource = stationCourante.getDistanceDijkstra();
         if(distanceSource + lignePoids < stationAdjacente.getDistanceDijkstra()){
@@ -66,16 +71,17 @@ public class AlgorithmeDijkstra {
         }
     }
 
+    //Mise en forme du résultat
     private void afficheResultat(Plan plan, Station source, Station destination){
         ArrayList<Station> stations = destination.cheminDijkstra();
         ArrayList<Ligne> lignes = Ligne.ligneUtilisees(plan, stations);
-        System.out.println("Debut resultat");
-        for(Ligne ligne: lignes){
-            System.out.println(ligne.getNomLigne());
+        String c = "";
+        for(int i = 0; i < stations.size(); i++){
+            c += stations.get(i).getNomStation()+" ";
+            if(i < lignes.size()){
+                c += lignes.get(i).getNomLigne()+" ";
+            }
         }
-        for(Station station: stations){
-            System.out.println(station.getNomStation());
-        }
-        System.out.println("Distance totale : "+destination.getDistanceDijkstra()+"\n");
+        System.out.println(c+"-> avec une distance totale de "+destination.getDistanceDijkstra());
     }
 }

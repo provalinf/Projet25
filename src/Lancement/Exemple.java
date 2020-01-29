@@ -5,8 +5,12 @@ import Reseau.Ligne;
 import Reseau.Station;
 import Reseau.Plan;
 
+import java.util.Scanner;
+
 public class Exemple {
+
 	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
 		/* Creation des stations */
 		Station poleTemis = new Station("Pole Temis");
 		Station uSport = new Station("U-Sport");
@@ -93,14 +97,87 @@ public class Exemple {
 		besancon.addLigne(l9);
 		besancon.addLigne(l10);
 
-		/* Appel de l'algorithme de Dijkstra */
-		AlgorithmeDijkstra algoDijkstra = new AlgorithmeDijkstra();
-		algoDijkstra.dijkstra(besancon, poleTemis, gibelotte);
+		boolean fin = false;
+		System.out.println("Bienvenue dans le simulateur d'optimisateur de livraison de marchandise sur le réseau de bus de Besançon");
+		while(!fin){
+			System.out.println("\nMenu principal :");
+			System.out.println("1 - Lancer la simulation");
+			System.out.println("2 - Voir la liste des stations");
+			System.out.println("3 - Voir la liste des lignes");
+			System.out.println("4 - Quitter");
+			int choix = scan.nextInt();
+			while(choix < 1 || choix > 4){
+				System.out.println("Erreur de saisi !");
+				System.out.println("\nMenu principal :");
+				System.out.println("1 - Lancer la simulation");
+				System.out.println("2 - Voir la liste des stations");
+				System.out.println("3 - Voir la liste des lignes");
+				System.out.println("4 - Quitter");
+				choix = scan.nextInt();
+			}
+			if(choix == 4){
+				fin = true;
+			}else if(choix == 3) {
+				for (Ligne l : besancon.getLignes()) {
+					System.out.println("- "+l.getNomLigne());
+					String c = "\t";
+					for (Station s: l.getStations()) {
+						c += s.getNomStation()+"   ";
+					}
+					System.out.println(c);
+				}
+			}else if(choix == 2) {
+				for (Station s : besancon.getStations()) {
+					System.out.println("- "+s.getNomStation());
+				}
+			}else if(choix == 1){
+				scan.reset();
+				System.out.println("Veuillez saisir une station de départ :");
+				Station source;
+				do{
+					scan.nextLine();
+					String saisi = scan.nextLine();
+					//Mis en majuscule de la premiere lettre de chaque mot, gestion espace et tiret
+					if(saisi.contains(" ")){
+						saisi = saisi.substring(0,saisi.indexOf(" ")+1)+(saisi.substring(saisi.indexOf(" ")+1,saisi.indexOf(" ")+2)).toUpperCase()+saisi.substring(saisi.indexOf(" ")+2);
+					}
+					if(saisi.contains("-")){
+						saisi = saisi.substring(0,saisi.indexOf("-")+1)+(saisi.substring(saisi.indexOf("-")+1,saisi.indexOf("-")+2)).toUpperCase()+saisi.substring(saisi.indexOf("-")+2);
+					}
+					saisi = saisi.substring(0,1).toUpperCase()+saisi.substring(1);
+					String s = saisi;
+					source = besancon.getStations().stream().filter(station -> s.equals(station.getNomStation())).findAny().orElse(null);
+					if(source == null){
+						System.out.println("Erreur cette station n'existe pas !");
+						System.out.println("Veuillez saisir une station de départ :");
+					}
+				}while(source == null);
+				scan.reset();
+				System.out.println("Veuillez saisir une station d'arrivée :");
+				Station destination;
+				do{
+					String saisi = scan.nextLine();
+					//Mis en majuscule de la premiere lettre de chaque mot
+					if(saisi.contains(" ")){
+						saisi = saisi.substring(0,saisi.indexOf(" ")+1)+(saisi.substring(saisi.indexOf(" ")+1,saisi.indexOf(" ")+2)).toUpperCase()+saisi.substring(saisi.indexOf(" ")+2);
+					}
+					if(saisi.contains("-")){
+						saisi = saisi.substring(0,saisi.indexOf("-")+1)+(saisi.substring(saisi.indexOf("-")+1,saisi.indexOf("-")+2)).toUpperCase()+saisi.substring(saisi.indexOf("-")+2);
+					}
+					saisi = saisi.substring(0,1).toUpperCase()+saisi.substring(1);
+					String s = saisi;
+					destination = besancon.getStations().stream().filter(station -> s.equals(station.getNomStation())).findAny().orElse(null);
+					if(destination == null){
+						System.out.println("Erreur cette station n'existe pas !");
+						System.out.println("Veuillez saisir une station d'arrivée :");
+					}
+				}while(destination == null);
 
-		algoDijkstra.dijkstra(besancon, poleTemis, papin);
-
-		algoDijkstra.dijkstra(besancon, beauxArts, notreDame);
-
-		algoDijkstra.dijkstra(besancon, voirin, gareViotte);
+				System.out.println("Calcul du plus court chemin entre "+source.getNomStation()+" et "+destination.getNomStation()+" en cours ...\n");
+				/* Appel de l'algorithme de Dijkstra */
+				AlgorithmeDijkstra algoDijkstra = new AlgorithmeDijkstra();
+				algoDijkstra.dijkstra(besancon, source, destination);
+			}
+		}
 	}
 }

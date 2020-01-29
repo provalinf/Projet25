@@ -107,4 +107,8 @@ public class Ligne {
 	public void addStation(Station station) {
 		stations.add(station);
 	}
+
+	public ArrayList<Station> getStations(){
+		return stations;
+	}
 }
