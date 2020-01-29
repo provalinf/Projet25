@@ -134,8 +134,8 @@ public class Exemple {
 				scan.reset();
 				System.out.println("Veuillez saisir une station de départ :");
 				Station source;
+				scan.nextLine();
 				do{
-					scan.nextLine();
 					String saisi = scan.nextLine();
 					//Mis en majuscule de la premiere lettre de chaque mot, gestion espace et tiret
 					if(saisi.contains(" ")){
