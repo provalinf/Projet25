@@ -1,6 +1,7 @@
 package Lancement;
 
 import Algorithme.AlgorithmeDijkstra;
+import Algorithme.Horaire;
 import Reseau.Ligne;
 import Reseau.Station;
 import Reseau.Plan;
@@ -65,6 +66,9 @@ public class Exemple {
 		poleSportif.addStationDest(notreDame,1);
 		poleSportif.addStationDest(poleTemis,2);
 		poleSportif.addStationDest(leclerc,6);
+
+		poleTemis.addCharge(12, 18, 0);
+		uSport.addCharge(8, 18, 0);
 
 		/* Creation des lignes */
 		Ligne l3 = new Ligne("L3", poleTemis, uSport, campusArago, crous, gibelotte, voirin, gareViotte);
@@ -175,7 +179,7 @@ public class Exemple {
 
 				System.out.println("Calcul du plus court chemin entre "+source.getNomStation()+" et "+destination.getNomStation()+" en cours ...\n");
 				/* Appel de l'algorithme de Dijkstra */
-				AlgorithmeDijkstra algoDijkstra = new AlgorithmeDijkstra();
+				AlgorithmeDijkstra algoDijkstra = new AlgorithmeDijkstra(new Horaire(18,9));
 				algoDijkstra.dijkstra(besancon, source, destination);
 			}
 		}

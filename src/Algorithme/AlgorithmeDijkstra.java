@@ -10,7 +10,13 @@ import java.util.Map;
 
 public class AlgorithmeDijkstra {
 
-    /* Calcul le plus court chemin entre chaque noeud et la source */
+	private Horaire horaireExecution;
+
+	public AlgorithmeDijkstra(Horaire horaire) {
+		horaireExecution = horaire;
+	}
+
+	/* Calcul le plus court chemin entre chaque noeud et la source */
 
     public void dijkstra(Plan plan, Station source, Station destination){
         init(plan);
@@ -27,7 +33,7 @@ public class AlgorithmeDijkstra {
             stationsAVisitees.remove(stationCourante);
             for(Map.Entry<Station,Integer> stationPair: stationCourante.getStationsAdjacentes().entrySet()){
                 Station stationAdjacente = stationPair.getKey();
-                Integer lignePoids = stationPair.getValue();
+                Integer lignePoids = stationPair.getValue()+stationPair.getKey().getCharge(horaireExecution);
                 if(!stations.contains(stationAdjacente)) {
                     calculDistanceMinimale(stationAdjacente, lignePoids, stationCourante);
                     //Ajout des stations adjacentes
