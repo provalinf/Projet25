@@ -136,6 +136,22 @@ public class Exemple {
 				}
 			}else if(choix == 1){
 				scan.reset();
+				int heureSimu;
+				int minuteSimu;
+				int time;
+				do {
+					System.out.println("Veuillez saisir une heure de simulation entre 0 et 23");
+					time = scan.nextInt();
+				} while(time < 0 || time > 23);
+
+				heureSimu = time;
+				do {
+					System.out.println("Veuillez saisir une minute de simulation entre 0 et 59");
+					time = scan.nextInt();
+				} while(time < 0 || time > 59);
+				minuteSimu = time;
+
+				scan.reset();
 				System.out.println("Veuillez saisir une station de départ :");
 				Station source;
 				scan.nextLine();
@@ -179,7 +195,7 @@ public class Exemple {
 
 				System.out.println("Calcul du plus court chemin entre "+source.getNomStation()+" et "+destination.getNomStation()+" en cours ...\n");
 				/* Appel de l'algorithme de Dijkstra */
-				AlgorithmeDijkstra algoDijkstra = new AlgorithmeDijkstra(new Horaire(18,9));
+				AlgorithmeDijkstra algoDijkstra = new AlgorithmeDijkstra(new Horaire(heureSimu,minuteSimu));
 				algoDijkstra.dijkstra(besancon, source, destination);
 			}
 		}
